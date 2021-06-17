@@ -15,9 +15,11 @@ export class Sprint {
     @Prop()
     image: string;
     
-    @Prop()
-    teamId: string;
+    @Prop({ unique: true })
+    teamId: String;
 
+    @Prop()
+    date: Date;
 } 
 
 export const SprintSchema = SchemaFactory.createForClass(Sprint);
