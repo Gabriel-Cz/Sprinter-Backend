@@ -4,7 +4,6 @@ import { Document } from 'mongoose';
 export type SprintDocument = Sprint & Document;
 
 @Schema() 
-
 export class Sprint {
     @Prop({ required: true })
     name: string;

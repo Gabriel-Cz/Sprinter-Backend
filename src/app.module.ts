@@ -4,7 +4,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { SprintModule } from './sprint/sprint.module';
+import { SprintModule } from './sprints/sprint.module';
 
 @Module({
   imports: [

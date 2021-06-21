@@ -14,16 +14,19 @@ const passwordValidatorRegex = function(password: string): boolean {
     return passwordValidated;
 }
 
+const emailValidator = [emailValidatorRegex, "Debes colocar un correo electronico valido"];
+const passwordValidator = [passwordValidatorRegex, "Tu contraseña debe de tener al menos 8 caracteres y una Mayuscula"];
+
 @Schema()
 
 export class User {
     @Prop({ required: true })
     name: String;
 
-    @Prop({ required: true, unique: true, validate: emailValidatorRegex })
+    @Prop({ required: [true, 'El correo electronico es necesario'], unique: true, validate: [emailValidatorRegex, 'Debes colocar un correo electronico valido'] })
     email: String;
 
-    @Prop({ required: true, unique: true, validate: passwordValidatorRegex })
+    @Prop({ required: [true, 'La contrasena es necesaria'], unique: true, validate: [passwordValidatorRegex, 'Tu contraseña debe de tener al menos 8 caracteres y una Mayuscula'] })
     password: String;
 
     @Prop()
