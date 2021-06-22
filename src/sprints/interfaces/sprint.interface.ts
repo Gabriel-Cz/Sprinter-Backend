@@ -4,5 +4,5 @@ export default interface Sprint {
     description: string;
     image: string;
     teamId: string;
-    date: Date;
+    createdAt: Date;
 }

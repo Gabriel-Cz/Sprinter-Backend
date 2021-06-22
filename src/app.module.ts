@@ -9,14 +9,6 @@ import { SprintModule } from './sprints/sprint.module';
 @Module({
   imports: [
     MongooseModule.forRoot('mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&ssl=false'),
-    GraphQLModule.forRoot({
-      debug: true,
-      playground: true,
-      typePaths: ['./**/*.graphql'],
-      definitions: {
-        path: join(process.cwd(), 'src/graphql.ts'),
-      },
-    }),
     SprintModule
   ],
   controllers: [AppController],

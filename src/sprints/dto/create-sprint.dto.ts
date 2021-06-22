@@ -4,5 +4,9 @@ export class CreateSprintDto {
     description: string;
     teamId: string;
     image: string;
-    date: Date;
+    createdAt: Date;
+}
+
+export class FindSprintDto {
+    id: string;
 }

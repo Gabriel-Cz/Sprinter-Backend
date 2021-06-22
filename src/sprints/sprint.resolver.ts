@@ -1,7 +1,11 @@
 import { Field, ObjectType } from "@nestjs/graphql";
+import { Schema as MongooseSchema } from "mongoose";
 
 @ObjectType() 
-export class Sprint {
+export class SprintResolver {
+    @Field(type => MongooseSchema.Types.ObjectId)
+    _id: MongooseSchema.Types.ObjectId
+
     @Field(type => String)
     name: String;
     

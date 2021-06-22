@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common'
+import { Schema as MongooseSchema } from 'mongoose'
 import { CreateSprintDto } from './dto/create-sprint.dto';
 import { SprintService } from './sprint.service';
 
@@ -8,22 +9,22 @@ export class SprintsController {
 
     @Get()
     async findAll(): Promise<any> {
-        this.sprintService.findAll();
+        return this.sprintService.findAll();
     } 
 
-    @Get(':id')
-    findOne(@Param('id') id: string): string {
-        return 'this return a single document'
+    @Get('/sprint/:id')
+    async findOne(@Param('id') id: MongooseSchema.Types.ObjectId) {
+        return this.sprintService.findOne(id);
     }
 
-    @Post('create-sprint')
-    async create(@Body() createSprintDto: CreateSprintDto) {
-        this.sprintService.create(createSprintDto);
+    @Post('/create-sprint')
+    async create(@Body() createSprintDto: CreateSprintDto)  {
+        return this.sprintService.create(createSprintDto);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
     }
 
-    @Delete(':id')
-    delete(@Param('id') id: string): string {
-        return 'I delete documents'
+    @Delete('/sprint/:id')
+    async remove(@Param('id') id: MongooseSchema.Types.ObjectId) {
+        return this.sprintService.remove(id);
     }
 }
 

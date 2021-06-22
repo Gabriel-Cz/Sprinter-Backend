@@ -1,8 +1,0 @@
-type Sprint {
-    _id: ID,
-    name: String,
-    description: String,
-    image: String,
-    date: Int,
-    members: [ID]
-}
