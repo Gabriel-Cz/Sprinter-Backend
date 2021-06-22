@@ -9,6 +9,9 @@ import { SprintModule } from './sprints/sprint.module';
 @Module({
   imports: [
     MongooseModule.forRoot('mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&ssl=false'),
+    GraphQLModule.forRoot({
+      autoSchemaFile: join(process.cwd(), 'src/schemaGraphQL/schema.gql')
+    }),
     SprintModule
   ],
   controllers: [AppController],

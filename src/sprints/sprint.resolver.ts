@@ -1,23 +1,23 @@
-import { Field, ObjectType } from "@nestjs/graphql";
-import { Schema as MongooseSchema } from "mongoose";
+import { Parent, Resolver } from "@nestjs/graphql";
+import { Schema as MongooseSchema } from 'mongoose';
+import { Sprint } from "./models/sprint.model";
+import { Args, Query } from "@nestjs/graphql";
+import { SprintService } from "./sprint.service";
 
-@ObjectType() 
+@Resolver(of => Sprint)
 export class SprintResolver {
-    @Field(type => MongooseSchema.Types.ObjectId)
-    _id: MongooseSchema.Types.ObjectId
+    constructor(
+        private sprintService: SprintService
+    ) {}
 
-    @Field(type => String)
-    name: String;
-    
-    @Field(type => String)
-    description: String;
+    @Query(returns => Sprint, { name: 'sprints' })
+    async getSprints() {
+        return this.sprintService.findAll();
+    }
 
-    @Field(type => String)
-    image: String;
-
-    @Field(type => Number)
-    teamId: Number;
-    
-    @Field(type => Date)
-    date: Date;
+    @Query(returns => Sprint, { name: 'sprint' })
+    async getSprint(@Args('id', { type: () => MongooseSchema.Types.ObjectId }) id: MongooseSchema.Types.ObjectId) {
+        return this.sprintService.findOne(id);
+    }
 }
+

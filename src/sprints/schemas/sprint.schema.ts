@@ -14,7 +14,7 @@ export class Sprint {
     @Prop()
     image: string;
     
-    @Prop({ unique: true })
+    @Prop({ required: true, unique: true })
     teamId: string;
 
     @Prop({ default: Date.now })
