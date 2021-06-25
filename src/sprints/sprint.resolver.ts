@@ -1,23 +1,29 @@
-import { Parent, Resolver } from "@nestjs/graphql";
+import { Resolver, Args, Query, Mutation } from "@nestjs/graphql";
 import { Schema as MongooseSchema } from 'mongoose';
 import { Sprint } from "./models/sprint.model";
-import { Args, Query } from "@nestjs/graphql";
+import { CreateSprintInput } from "./sprint.input";
 import { SprintService } from "./sprint.service";
 
-@Resolver(of => Sprint)
+@Resolver(() => Sprint)
 export class SprintResolver {
     constructor(
         private sprintService: SprintService
     ) {}
 
-    @Query(returns => Sprint, { name: 'sprints' })
+    @Query(() => Sprint, { name: 'sprints' })
     async getSprints() {
         return this.sprintService.findAll();
     }
 
-    @Query(returns => Sprint, { name: 'sprint' })
+    @Mutation(returns => Sprint, { name: 'newSprint' }) 
+    async createSprint(@Args('createSprintData') createSprintData: CreateSprintInput) {
+        return this.sprintService.create(createSprintData);
+    }
+
+    /*@Query(() => Sprint, { name: 'sprint' })
     async getSprint(@Args('id', { type: () => MongooseSchema.Types.ObjectId }) id: MongooseSchema.Types.ObjectId) {
         return this.sprintService.findOne(id);
-    }
+    }*/
+
 }
 
