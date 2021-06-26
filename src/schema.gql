@@ -3,10 +3,10 @@
 # ------------------------------------------------------
 
 type Sprint {
+  _id: ID!
   name: String!
   description: String!
   image: String
-  teamId: String!
   createdAt: DateTime!
 }
 
@@ -16,7 +16,8 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type Query {
-  sprints: Sprint!
+  sprints: [Sprint!]!
+  sprint(_id: ID!): Sprint!
 }
 
 type Mutation {
@@ -27,6 +28,5 @@ input CreateSprintInput {
   name: String!
   description: String!
   image: String
-  teamId: String!
-  createdAt: DateTime!
+  createdAt: DateTime
 }

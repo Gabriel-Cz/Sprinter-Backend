@@ -1,21 +1,27 @@
-import { Field, ObjectType } from "@nestjs/graphql";
+import { Field, ID, ObjectType } from "@nestjs/graphql";
 import { Schema as MongooseSchema } from "mongoose";
-
 
 @ObjectType()
 export class Sprint {
-    @Field()
+    @Field(type => ID)
+    _id: MongooseSchema.Types.ObjectId;
+
+    @Field(type => String)
     name: String;
 
-    @Field()
+    @Field(type => String)
     description: String;
 
-    @Field( {nullable: true} )
+    @Field(type => String, {nullable: true} )
     image?: String;
 
-    @Field()
-    teamId: String;
+    /*@Field(type => ID)
+    teamId: MongooseSchema.Types.ObjectId;
 
-    @Field()
-    createdAt: Date;
+    @Field(type => ID)
+    userId: MongooseSchema.Types.ObjectId;
+    */
+
+    @Field(type => Date)
+    createdAt?: Date;
 }

@@ -5,7 +5,7 @@ import { SprintSchema, Sprint  } from './schemas/sprint.schema';
 import { SprintResolver } from './sprint.resolver';
 
 @Module({
-    imports: [MongooseModule.forFeature([{ name: Sprint.name, schema: SprintSchema }])],
+    imports: [MongooseModule.forFeature([{ name: Sprint.name, schema: SprintSchema, collection: "sprints" }])],
     providers: [SprintService, SprintResolver]
 })
 

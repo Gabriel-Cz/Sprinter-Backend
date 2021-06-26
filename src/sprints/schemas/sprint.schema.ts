@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Schema as MongooseSchema } from 'mongoose';
+import { Team } from 'src/team/team.schema';
 
 export type SprintDocument = Sprint & Document;
 
@@ -14,8 +15,8 @@ export class Sprint {
     @Prop()
     image: string;
     
-    @Prop({ required: true, unique: true })
-    teamId: string;
+    @Prop()
+    teamId: String;
 
     @Prop({ default: Date.now })
     createdAt: Date;

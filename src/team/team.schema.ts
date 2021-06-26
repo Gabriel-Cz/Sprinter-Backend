@@ -1,28 +1,27 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, ObjectId } from 'mongoose';
+import { Document, Schema as MongooseSchema } from 'mongoose';
 
 export type TeamDocument = Team & Document;
 
 @Schema() 
-
 export class Team {
     @Prop({ required: true })
-    decisorId: ObjectId;
+    decisorId: MongooseSchema.Types.ObjectId;
     
     @Prop()
-    financesExpId: ObjectId;
+    financesExpId: MongooseSchema.Types.ObjectId;
     
+    @Prop()
+    customerExpId: MongooseSchema.Types.ObjectId;
+
+    @Prop()
+    marketingExpId: MongooseSchema.Types.ObjectId;
+
     @Prop({ required: true })
-    customerExpId: ObjectId;
+    techExpId: MongooseSchema.Types.ObjectId;
 
     @Prop()
-    marketingExpId: ObjectId;
-
-    @Prop()
-    techExpId: ObjectId;
-
-    @Prop()
-    designExpId: ObjectId;
+    designExpId: MongooseSchema.Types.ObjectId;
 }
 
 export const TeamSchema = SchemaFactory.createForClass(Team);
