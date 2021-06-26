@@ -6,7 +6,7 @@ import { LoginUserDto } from './dto/login-user-dto';
 import { User, UserDocument } from "./user.schema";
 
 @Injectable()
-export default class UserService {
+export class UserService {
     constructor(
         @InjectModel(User.name) 
         private userModel: Model<UserDocument>
@@ -21,10 +21,23 @@ export default class UserService {
         }
     }
 
+    async findOne(email: string): Promise<any> {
+        try {
+            const findedUser = this.userModel.findOne({email: email});
+            return findedUser.exec();
+        } catch(error) {
+            throw new InternalServerErrorException(error);
+        }
+    }
+
     async login(loginUser: LoginUserDto): Promise<User> {
         try {
             const findedUser = this.userModel.findOne({email: loginUser.email}) 
-            return findedUser.exec();
+            if(findedUser) {
+                return findedUser.exec();
+            } else {
+                throw new InternalServerErrorException('El correo electronico no esta registrado, registrate.');
+            }
         } catch (error) {
             throw new InternalServerErrorException(error);
         }
