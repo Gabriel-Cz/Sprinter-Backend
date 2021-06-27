@@ -2,7 +2,7 @@ import { Field, ObjectType, ID } from "@nestjs/graphql";
 import { ObjectId } from "mongoose";
 
 @ObjectType()
-export class Team {
+export class TeamModel {
     @Field(type => ID)
     _id: ObjectId;
 
