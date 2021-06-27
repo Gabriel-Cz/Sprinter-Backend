@@ -6,7 +6,10 @@ import { CreateSprintDto } from './dto/create-sprint.dto';
 
 @Injectable()
 export class SprintService {
-    constructor(@InjectModel(Sprint.name) private sprintModel: Model<SprintDocument> ) {}
+    constructor(
+        @InjectModel(Sprint.name) 
+        private sprintModel: Model<SprintDocument> 
+    ) {}
 
     async findAll(): Promise<Sprint[]> {
         try {

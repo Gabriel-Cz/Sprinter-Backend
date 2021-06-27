@@ -1,10 +1,10 @@
 import { Field, ID, ObjectType } from "@nestjs/graphql";
-import { Schema as MongooseSchema } from "mongoose";
+import { ObjectId } from "mongoose";
 
 @ObjectType()
 export class Sprint {
     @Field(type => ID)
-    _id: MongooseSchema.Types.ObjectId;
+    _id: ObjectId;
 
     @Field(type => String)
     name: String;
@@ -16,10 +16,10 @@ export class Sprint {
     image?: String;
 
     /*@Field(type => ID)
-    teamId: MongooseSchema.Types.ObjectId;
+    teamId: ObjectId;
 
     @Field(type => ID)
-    userId: MongooseSchema.Types.ObjectId;
+    userId: ObjectId;
     */
 
     @Field(type => Date)
