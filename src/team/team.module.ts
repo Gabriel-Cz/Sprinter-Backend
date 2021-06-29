@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { TeamService } from './team.service';
+import { TeamResolver } from './team.resolver';
 import { Team, TeamSchema } from './team.schema';
 
 @Module({

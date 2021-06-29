@@ -1,5 +1,7 @@
-import { Resolver, Args, Query, Mutation, ID } from "@nestjs/graphql";
+import { Resolver, Args, Query, Mutation, ID, ResolveField, Parent } from "@nestjs/graphql";
 import { Schema as MongooseSchema } from 'mongoose';
+import { TeamModel } from "src/team/team.model";
+import { TeamService } from "src/team/team.service";
 import { Sprint } from "./models/sprint.model";
 import { CreateSprintInput } from "./sprint.input";
 import { SprintService } from "./sprint.service";
@@ -7,7 +9,8 @@ import { SprintService } from "./sprint.service";
 @Resolver(of => Sprint)
 export class SprintResolver {
     constructor(
-        private sprintService: SprintService
+        private sprintService: SprintService,
+        private teamService: TeamService,
     ) {}
 
     @Query(returns => [Sprint], { name: 'sprints' })
@@ -26,5 +29,10 @@ export class SprintResolver {
         return this.sprintService.create(createSprintData);
     }
 
+    @ResolveField('getTeam', returns => TeamModel) 
+    async create(@Parent() sprint: Sprint) {
+        const { _id } = sprint;
+        return this.teamService.findOne(_id);
+    } 
 }
 

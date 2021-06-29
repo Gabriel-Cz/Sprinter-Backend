@@ -15,13 +15,12 @@ export class Sprint {
     @Field(type => String, {nullable: true} )
     image?: String;
 
-    /*@Field(type => ID)
-    teamId: ObjectId;
+    @Field(type => ID, {nullable: true})
+    teamId?: ObjectId;
 
     @Field(type => ID)
     userId: ObjectId;
-    */
 
-    @Field(type => Date)
+    @Field(type => Date, {nullable: true})
     createdAt?: Date;
 }
