@@ -1,8 +1,8 @@
 import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model, ObjectId } from 'mongoose';
-import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user-dto';
+import { CreateUserInput } from "./user.input";
 import { User, UserDocument } from "./user.schema";
 
 @Injectable()
@@ -12,7 +12,7 @@ export class UserService {
         private userModel: Model<UserDocument>
     ) {}
 
-    async create(createUser: CreateUserDto): Promise<User> {
+    async create(createUser: CreateUserInput): Promise<User> {
         try {
             const createdUser = new this.userModel(createUser);
             return createdUser.save();

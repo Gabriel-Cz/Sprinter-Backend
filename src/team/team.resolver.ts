@@ -20,4 +20,11 @@ export class TeamResolver {
     async createTeam(@Args('createTeamData') createTeamData: CreateTeamInput) {
         return this.teamService.create(createTeamData);
     }
+
+    @Mutation(returns => TeamModel, { name: 'removeTeam' })
+    async deleteTeam(@Args('_id', { type: () => ID }) _id: ObjectId) {
+        let teamID = _id;
+        return this.teamService.delete(teamID);
+    }
+
 }
