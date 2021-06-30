@@ -38,8 +38,8 @@ export class User {
     @Prop({ unique: true })
     currentSprintId: ObjectId;
 
-    @Prop({ unique: true })
-    networkId: ObjectId;
+    @Prop({ unique: true, max: [20, 'Alcanzaste el maximo de contactos disponibles para agregar en tu perfil.'] })
+    contactsNetwork: ObjectId[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
