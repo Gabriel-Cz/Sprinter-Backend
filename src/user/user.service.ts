@@ -2,8 +2,11 @@ import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model, ObjectId } from 'mongoose';
 import { LoginUserDto } from './dto/login-user-dto';
-import { CreateUserInput } from "./user.input";
+import { CreateUserInput, LoginUserInput } from "./user.input";
 import { User, UserDocument } from "./user.schema";
+import * as bcrypt from 'bcrypt';
+
+const saltRounds = 10;
 
 @Injectable()
 export class UserService {
@@ -13,9 +16,29 @@ export class UserService {
     ) {}
 
     async create(createUser: CreateUserInput): Promise<User> {
+        const extractedPassword = createUser.password;
+        createUser.password = bcrypt.hashSync(extractedPassword, saltRounds); 
         try {
             const createdUser = new this.userModel(createUser);
             return createdUser.save();
+        } catch (error) {
+            throw new InternalServerErrorException(error);
+        }
+    }
+
+    async login(loginUser: LoginUserInput): Promise<User> {
+        try {
+            const findedUser = await this.userModel.findOne({email: loginUser.email});
+            const comparedPassword = bcrypt.compareSync(loginUser.password, findedUser.password);
+            if(!findedUser) {
+                throw new InternalServerErrorException('El correo electronico no esta registrado, registrate.');
+            } 
+            if(!comparedPassword) {
+                throw new InternalServerErrorException('La contrasena es incorrecta prueba de nuevo.');
+            }
+            else {
+                return findedUser.lean();
+            }
         } catch (error) {
             throw new InternalServerErrorException(error);
         }
@@ -26,19 +49,6 @@ export class UserService {
             const findedUser = this.userModel.findOne({email: email});
             return findedUser.exec();
         } catch(error) {
-            throw new InternalServerErrorException(error);
-        }
-    }
-
-    async login(loginUser: LoginUserDto): Promise<User> {
-        try {
-            const findedUser = this.userModel.findOne({email: loginUser.email}) 
-            if(findedUser) {
-                return findedUser.exec();
-            } else {
-                throw new InternalServerErrorException('El correo electronico no esta registrado, registrate.');
-            }
-        } catch (error) {
             throw new InternalServerErrorException(error);
         }
     }

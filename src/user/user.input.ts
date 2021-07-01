@@ -4,19 +4,19 @@ import { ObjectId } from 'mongoose';
 @InputType()
 export class CreateUserInput {
     @Field(type => String)
-    name: String;
+    name: string;
 
     @Field(type => String)
     email: ObjectId;
     
     @Field(type => String)
-    password: String;
+    password: string;
 
     @Field(type => String, { nullable: true })
-    role?: String;
+    role?: string;
 
     @Field(type => String, { nullable: true })
-    avatar?: String;
+    avatar?: string;
 
     @Field(type => ID, { nullable: true })
     currentSprintId?: ObjectId;

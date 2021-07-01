@@ -1,5 +1,5 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common'
-import { Model, Schema as MongooseSchema } from 'mongoose';
+import { Model, Schema as MongooseSchema, ObjectId } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Sprint, SprintDocument } from './schemas/sprint.schema';
 import { CreateSprintDto } from './dto/create-sprint.dto';
@@ -11,9 +11,10 @@ export class SprintService {
         private sprintModel: Model<SprintDocument> 
     ) {}
 
-    async findAll(): Promise<Sprint[]> {
+    async findAll(_id: ObjectId): Promise<Sprint[]> {
         try {
-            return this.sprintModel.find().lean();
+            const userID = _id;
+            return this.sprintModel.find({userId: userID}).exec();
         } catch (error) {
             throw new InternalServerErrorException(error);
         }

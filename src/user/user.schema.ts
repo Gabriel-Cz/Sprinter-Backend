@@ -21,19 +21,19 @@ const passwordValidator = [passwordValidatorRegex, "Tu contraseña debe de tener
 
 export class User {
     @Prop({ required: true })
-    name: String;
+    name: string;
 
     @Prop({ required: [true, 'El correo electronico es necesario'], unique: true, validate: [emailValidatorRegex, 'Debes colocar un correo electronico valido'] })
-    email: String;
+    email: string;
 
     @Prop({ required: [true, 'La contrasena es necesaria'], unique: true, validate: [passwordValidatorRegex, 'Tu contraseña debe de tener al menos 8 caracteres y una Mayuscula'] })
-    password: String;
+    password: string;
 
     @Prop()
-    profesionName: String;
+    profesionName: string;
 
     @Prop()
-    avatar: String;
+    avatar: string;
 
     @Prop({ unique: true })
     currentSprintId: ObjectId;
