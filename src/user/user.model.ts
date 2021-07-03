@@ -7,20 +7,20 @@ export class UserModel {
     _id: ObjectId;
 
     @Field(type => String)
-    name: String;
+    name: string;
 
     @Field(type => String)
-    email: String;
+    email: string;
 
     @Field(type => String)
-    password: String;
+    password: string;
 
     @Field(type => String)
-    avatar: String;
+    avatar: string;
 
     @Field(type => ID)
     currentSprintId: ObjectId;
 
     @Field(type => [String])
-    contactsNetwork: String[];
+    contactsNetwork: string[];
 }

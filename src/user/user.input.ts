@@ -21,3 +21,12 @@ export class CreateUserInput {
     @Field(type => ID, { nullable: true })
     currentSprintId?: ObjectId;
 }
+
+@InputType()
+export class LoginUserInput {
+    @Field(type => String)
+    email: string;
+
+    @Field(type => String)
+    password: string;
+}

@@ -1,7 +1,6 @@
 import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model, ObjectId } from 'mongoose';
-import { LoginUserDto } from './dto/login-user-dto';
 import { CreateUserInput, LoginUserInput } from "./user.input";
 import { User, UserDocument } from "./user.schema";
 import * as bcrypt from 'bcrypt';
@@ -37,14 +36,14 @@ export class UserService {
                 throw new InternalServerErrorException('La contrasena es incorrecta prueba de nuevo.');
             }
             else {
-                return findedUser.lean();
+                return findedUser;
             }
         } catch (error) {
             throw new InternalServerErrorException(error);
         }
     }
 
-    async findOne(email: String): Promise<any> {
+    async findOne(email: string): Promise<any> {
         try {
             const findedUser = this.userModel.findOne({email: email});
             return findedUser.exec();
@@ -53,7 +52,7 @@ export class UserService {
         }
     }
 
-    async deleteAccount(email: String): Promise<User> {
+    async deleteAccount(email: string): Promise<User> {
         try {
             const deletedUser = this.userModel.findOneAndDelete({email: email});
             return deletedUser.exec();
