@@ -2,12 +2,34 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type TeamModel {
+  _id: ID!
+  decisorId: ID!
+  financesExpId: ID!
+  customerExpId: ID!
+  marketingExpId: ID!
+  techExpId: ID!
+  designExpId: ID!
+}
+
+type UserModel {
+  _id: ID
+  name: String!
+  email: String!
+  password: String!
+  role: String
+  avatar: String
+  contactsNetwork: [ID!]
+}
+
 type Sprint {
   _id: ID!
   name: String!
   description: String!
   image: String
-  createdAt: DateTime!
+  teamId: ID
+  userId: ID!
+  createdAt: DateTime
 }
 
 """
@@ -18,15 +40,45 @@ scalar DateTime
 type Query {
   sprints: [Sprint!]!
   sprint(_id: ID!): Sprint!
+  teams(_id: ID!): TeamModel!
 }
 
 type Mutation {
   newSprint(createSprintData: CreateSprintInput!): Sprint!
+  newTeam(createTeamData: CreateTeamInput!): TeamModel!
+  removeTeam(_id: ID!): TeamModel!
+  signUp(createUserData: CreateUserInput!): UserModel!
+  signIn(loginUserData: LoginUserInput!): UserModel!
 }
 
 input CreateSprintInput {
   name: String!
   description: String!
   image: String
+  teamId: ID
+  userId: ID!
   createdAt: DateTime
+}
+
+input CreateTeamInput {
+  decisorId: ID!
+  financesExpId: ID
+  customerExpId: ID
+  marketingExpId: ID
+  techExpId: ID!
+  designExpId: ID
+}
+
+input CreateUserInput {
+  name: String!
+  email: String!
+  password: String!
+  role: String
+  avatar: String
+  contactsNetwork: [ID!]
+}
+
+input LoginUserInput {
+  email: String!
+  password: String!
 }

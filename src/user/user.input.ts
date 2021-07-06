@@ -18,8 +18,8 @@ export class CreateUserInput {
     @Field(type => String, { nullable: true })
     avatar?: string;
 
-    @Field(type => ID, { nullable: true })
-    currentSprintId?: ObjectId;
+    @Field(type => [ID], { nullable: true })
+    contactsNetwork?: ObjectId[]
 }
 
 @InputType()

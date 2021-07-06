@@ -14,7 +14,6 @@ import { SprintService } from "./sprint.service";
 export class SprintResolver {
     constructor(
         private sprintService: SprintService,
-        private teamService: TeamService,
     ) {}
 
     @Query(returns => [Sprint], { name: 'sprints' })
@@ -40,6 +39,8 @@ export class SprintResolver {
         return this.sprintService.create(createSprintData);
     }
 
+    /*
+    
     @ResolveField('getTeam', returns => TeamModel) 
     @UseGuards(GqlAuthGuard) 
     async create(
@@ -48,5 +49,7 @@ export class SprintResolver {
         const { _id } = sprint;
         return this.teamService.findOne(_id);
     } 
+    
+    */
 }
 

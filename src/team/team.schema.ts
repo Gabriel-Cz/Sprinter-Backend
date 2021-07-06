@@ -1,27 +1,26 @@
-import { ID } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document,  ObjectId } from 'mongoose';
+import { Document, Schema as MongooseSchema, ObjectId } from 'mongoose';
 
 export type TeamDocument = Team & Document;
 
 @Schema() 
 export class Team {
-    @Prop({ type: ObjectId })
+    @Prop({ required: true, type: MongooseSchema.Types.ObjectId })
     decisorId: ObjectId;
     
-    @Prop(ObjectId)
+    @Prop({ type: MongooseSchema.Types.ObjectId })
     financesExpId: ObjectId;
     
-    @Prop()
+    @Prop({ type: MongooseSchema.Types.ObjectId })
     customerExpId: ObjectId;
 
-    @Prop()
+    @Prop({ type: MongooseSchema.Types.ObjectId })
     marketingExpId: ObjectId;
 
-    @Prop({ required: true })
+    @Prop({ required: true, type: MongooseSchema.Types.ObjectId })
     techExpId: ObjectId;
 
-    @Prop()
+    @Prop({ type: MongooseSchema.Types.ObjectId })
     designExpId: ObjectId;
 }
 

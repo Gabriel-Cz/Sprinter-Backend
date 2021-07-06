@@ -3,8 +3,8 @@ import { ObjectId } from "mongoose";
 
 @ObjectType()
 export class UserModel {
-    @Field(type => ID)
-    _id: ObjectId;
+    @Field(type => ID, { nullable: true })
+    _id?: ObjectId;
 
     @Field(type => String)
     name: string;
@@ -15,12 +15,15 @@ export class UserModel {
     @Field(type => String)
     password: string;
 
-    @Field(type => String)
-    avatar: string;
+    @Field(type => String, { nullable: true })
+    role?: string;
 
-    @Field(type => ID)
-    currentSprintId: ObjectId;
+    @Field(type => String, { nullable: true })
+    avatar?: string;
 
-    @Field(type => [String])
-    contactsNetwork: string[];
+    /* @Field(type => String, { nullable: true })
+    currentSprintId?: string; */
+
+    @Field(type => [ID], { nullable: true })
+    contactsNetwork?: ObjectId[];
 }

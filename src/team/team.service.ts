@@ -2,7 +2,6 @@ import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { Model, ObjectId } from 'mongoose';
 import { InjectModel } from "@nestjs/mongoose";
 import { Team, TeamDocument } from "./team.schema";
-import { CreateTeamDto } from './dto/create-team.dto';
 import { CreateTeamInput } from "./team.input";
 
 @Injectable()

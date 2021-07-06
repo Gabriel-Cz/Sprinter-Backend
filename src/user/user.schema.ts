@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document, ObjectId } from 'mongoose';
+import { Document, Schema as MongooseSchema, ObjectId } from 'mongoose';
 
 export type UserDocument = User & Document;
 
@@ -23,23 +23,23 @@ export class User {
     @Prop({ required: true })
     name: string;
 
-    @Prop({ required: [true, 'El correo electronico es necesario'], unique: true, validate: [emailValidatorRegex, 'Debes colocar un correo electronico valido'] })
+    @Prop({ required: [true, 'El correo electronico es necesario'], unique: true /* validate: [emailValidatorRegex, 'Debes colocar un correo electronico valido'] */})
     email: string;
 
-    @Prop({ required: [true, 'La contrasena es necesaria'], unique: true, validate: [passwordValidatorRegex, 'Tu contraseña debe de tener al menos 8 caracteres y una Mayuscula'] })
+    @Prop({ required: [true, 'La contrasena es necesaria'] /* validate: [passwordValidatorRegex, 'Tu contraseña debe de tener al menos 8 caracteres y una Mayuscula'] */ })
     password: string;
 
     @Prop()
-    profesionName: string;
+    role?: string;
 
     @Prop()
-    avatar: string;
+    avatar?: string;
 
-    @Prop({ unique: true })
-    currentSprintId: ObjectId;
+    /* @Prop({ type: MongooseSchema.Types.ObjectId })
+    currentSprintId?: ObjectId; */
 
-    @Prop({ unique: true, max: [20, 'Alcanzaste el maximo de contactos disponibles para agregar en tu perfil.'] })
-    contactsNetwork: ObjectId[];
+    @Prop({ type: Array, unique: true, max: [20, 'Alcanzaste el maximo de contactos disponibles para agregar en tu perfil.'] })
+    contactsNetwork?: ObjectId[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
