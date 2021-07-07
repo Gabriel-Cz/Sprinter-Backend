@@ -19,7 +19,7 @@ export class CreateUserInput {
     avatar?: string;
 
     @Field(type => [ID], { nullable: true })
-    contactsNetwork?: ObjectId[]
+    contactsNetwork?: ObjectId[];
 }
 
 @InputType()

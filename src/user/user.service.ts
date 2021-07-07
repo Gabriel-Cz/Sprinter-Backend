@@ -18,8 +18,11 @@ export class UserService {
         const extractedPassword = createUser.password;
         createUser.password = bcrypt.hashSync(extractedPassword, saltRounds); 
         try {
-            const createdUser = new this.userModel(createUser);
-            return createdUser.save();
+            const userDB = this.userModel.findOne({ email: createUser.email});
+            if(!userDB) {
+                const createdUser = new this.userModel(createUser);
+                return createdUser.save();
+            } else throw new InternalServerErrorException('El correo electronico ya se encuentravregistrado, prueba de nuevo.');
         } catch (error) {
             throw new InternalServerErrorException(error);
         }

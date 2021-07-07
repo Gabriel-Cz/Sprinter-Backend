@@ -19,6 +19,7 @@ type UserModel {
   password: String!
   role: String
   avatar: String
+  currentSprintId: String
   contactsNetwork: [ID!]
 }
 

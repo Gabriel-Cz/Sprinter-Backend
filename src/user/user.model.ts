@@ -21,8 +21,8 @@ export class UserModel {
     @Field(type => String, { nullable: true })
     avatar?: string;
 
-    /* @Field(type => String, { nullable: true })
-    currentSprintId?: string; */
+    @Field(type => String, { nullable: true })
+    currentSprintId?: string; 
 
     @Field(type => [ID], { nullable: true })
     contactsNetwork?: ObjectId[];
