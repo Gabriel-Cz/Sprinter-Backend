@@ -5,7 +5,7 @@ import { CreateUserInput, LoginUserInput } from "./user.input";
 import { User, UserDocument } from "./user.schema";
 import * as bcrypt from 'bcrypt';
 
-const saltRounds = 10;
+const saltRounds: number = 10;
 
 @Injectable()
 export class UserService {
@@ -15,13 +15,18 @@ export class UserService {
     ) {}
 
     async create(createUser: CreateUserInput): Promise<User> {
-        const extractedPassword = createUser.password;
-        createUser.password = bcrypt.hashSync(extractedPassword, saltRounds); 
         try {
-            const userDB = this.userModel.findOne({ email: createUser.email});
-            if(!userDB) {
-                const createdUser = new this.userModel(createUser);
-                return createdUser.save();
+            const extractedPassword = createUser.password;
+            const extractedEmail = createUser.email; 
+            const userDB = await this.userModel.findOne({email: extractedEmail});
+            createUser.password = bcrypt.hashSync(extractedPassword, saltRounds);
+            if (userDB === null) {
+                try {
+                    const createdUser = new this.userModel(createUser);
+                    return createdUser.save();
+                } catch (error) {
+                    throw new InternalServerErrorException(error);
+                }
             } else throw new InternalServerErrorException('El correo electronico ya se encuentravregistrado, prueba de nuevo.');
         } catch (error) {
             throw new InternalServerErrorException(error);
@@ -30,17 +35,14 @@ export class UserService {
 
     async login(loginUser: LoginUserInput): Promise<User> {
         try {
-            const findedUser = await this.userModel.findOne({email: loginUser.email});
-            const comparedPassword = bcrypt.compareSync(loginUser.password, findedUser.password);
-            if(!findedUser) {
-                throw new InternalServerErrorException('El correo electronico no esta registrado, registrate.');
-            } 
-            if(!comparedPassword) {
-                throw new InternalServerErrorException('La contrasena es incorrecta prueba de nuevo.');
-            }
-            else {
-                return findedUser;
-            }
+            const extractedPassword = loginUser.password;
+            const extractedEmail = loginUser.email;
+            const findedUser = await this.userModel.findOne({email: extractedEmail});
+            if (findedUser) {
+                const comparedPassword: boolean = bcrypt.compareSync(extractedPassword, findedUser.password);
+                if (comparedPassword === false) throw new InternalServerErrorException('La contrasena es incorrecta prueba de nuevo.');
+                else return findedUser;
+            } else throw new InternalServerErrorException('El correo electronico no esta registrado, registrate.');;
         } catch (error) {
             throw new InternalServerErrorException(error);
         }

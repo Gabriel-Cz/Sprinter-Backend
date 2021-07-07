@@ -7,7 +7,7 @@ export class CreateUserInput {
     name: string;
 
     @Field(type => String)
-    email: ObjectId;
+    email: string;
     
     @Field(type => String)
     password: string;
