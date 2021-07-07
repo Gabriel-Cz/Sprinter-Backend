@@ -6,6 +6,9 @@ export class UserModel {
     @Field(type => ID, { nullable: true })
     _id?: ObjectId;
 
+    @Field(type => String, { nullable: true })
+    currentSprint_Id?: string; 
+
     @Field(type => String)
     name: string;
 
@@ -20,9 +23,6 @@ export class UserModel {
 
     @Field(type => String, { nullable: true })
     avatar?: string;
-
-    @Field(type => String, { nullable: true })
-    currentSprintId?: string; 
 
     @Field(type => [ID], { nullable: true })
     contactsNetwork?: ObjectId[];

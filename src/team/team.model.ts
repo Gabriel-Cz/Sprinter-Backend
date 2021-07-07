@@ -7,20 +7,23 @@ export class TeamModel {
     _id: ObjectId;
 
     @Field(type => ID)
-    decisorId: ObjectId;
+    sprint_Id: ObjectId;
+
+    @Field(type => ID)
+    decisor_Id: ObjectId;
     
     @Field(type => ID)
-    financesExpId: ObjectId;
+    financesExp_Id: ObjectId;
     
     @Field(type => ID)
-    customerExpId: ObjectId;
+    customerExp_Id: ObjectId;
 
     @Field(type => ID)
-    marketingExpId: ObjectId;
+    marketingExp_Id: ObjectId;
 
     @Field(type => ID)
-    techExpId: ObjectId;
+    techExp_Id: ObjectId;
 
     @Field(type => ID)
-    designExpId: ObjectId;
+    designExp_Id: ObjectId;
 }

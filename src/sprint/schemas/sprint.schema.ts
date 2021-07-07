@@ -6,6 +6,12 @@ export type SprintDocument = Sprint & Document;
 
 @Schema() 
 export class Sprint {
+    @Prop({ type: MongooseSchema.Types.ObjectId })
+    user_Id: ObjectId;
+
+    @Prop({ type: MongooseSchema.Types.ObjectId })
+    team_Id: ObjectId;
+
     @Prop({ required: true })
     name: string;
 
@@ -14,9 +20,6 @@ export class Sprint {
 
     @Prop()
     image: string;
-    
-    @Prop({ type: MongooseSchema.Types.ObjectId })
-    teamId: ObjectId;
 
     @Prop({ default: Date.now })
     createdAt: Date;

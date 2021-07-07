@@ -6,6 +6,12 @@ export class Sprint {
     @Field(type => ID)
     _id: ObjectId;
 
+    @Field(type => ID)
+    user_Id: ObjectId;
+    
+    @Field(type => ID, { nullable: true })
+    team_Id?: ObjectId;
+
     @Field(type => String)
     name: String;
 
@@ -14,12 +20,6 @@ export class Sprint {
 
     @Field(type => String, {nullable: true} )
     image?: String;
-
-    @Field(type => ID, {nullable: true})
-    teamId?: ObjectId;
-
-    @Field(type => ID)
-    userId: ObjectId;
 
     @Field(type => Date, {nullable: true})
     createdAt?: Date;

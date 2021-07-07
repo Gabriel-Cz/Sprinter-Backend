@@ -11,13 +11,4 @@ export class CreateSprintInput {
 
     @Field(type => String, { nullable: true })
     image?: string;
-
-    @Field(type => ID, { nullable: true })
-    teamId?: ObjectId;
-
-    @Field(type => ID)
-    userId: ObjectId;
-
-    @Field(type => Date, { nullable: true })
-    createdAt?: Date;
 }
